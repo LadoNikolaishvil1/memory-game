@@ -1,0 +1,27 @@
+main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.header {
+  width: 100%;
+  padding: 20px 10px;
+  background-color: var(--orange);
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.counters {
+  width: 100%;
+  padding: 20px 10px;
+  background-color: var(--black);
+}
