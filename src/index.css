@@ -1,1 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import "tailwindcss";
+
+
+:root {
+  --orange: #fda214;
+  --grey: #bcced9;
+  --darkgrey: #304859;
+  --black: #152938;
+  --cream: #f2f2f2;
+  --nave: #7191a5;
+  --lightblue: #6395b8;
+  --white: #fcfcfc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
