@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     if (flippedel.length == 2 && flippedel[0] == flippedel[1]) {
-      const newMatchedel = [...matched, flippedel[0], flippedel[1]]
+      const newMatchedel = [...matched, flippedel[0], flippedel[1]];
       setMatched(newMatchedel);
     }
 
@@ -23,12 +23,11 @@ function App() {
       flippedel.shift();
       flippedel.shift();
     }
-
   }, [flippedel]);
 
   useEffect(() => {
     console.log("matched: ", matched);
-  }, [matched])
+  }, [matched]);
 
   const shuffle = (array) => {
     for (let i = array.length - 1; i >= 0; i--) {
@@ -56,7 +55,16 @@ function App() {
 
   return (
     <main>
-      <div className="header"></div>
+      <div className="header">
+        <div className="headname">memory</div>
+        <div className="Restart">
+          Restart
+        
+        </div>
+        <div className="NewGame">
+         New game
+        </div>
+      </div>
       <div className="game">
         {Array.map((el, i) => (
           <MemoryButton
@@ -64,6 +72,11 @@ function App() {
             value={el}
             isActive={flippedi.includes(i) || matched.includes(el)}
             onClick={() => handleClick(i, el)}
+            style={
+              flippedi.includes(i) || matched.includes(el)
+                ? { backgroundColor: "#808080" }
+                : {}
+            }
           />
         ))}
       </div>
