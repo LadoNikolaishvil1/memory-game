@@ -66,7 +66,8 @@ function App() {
           <MemoryButton
             key={i}
             value={el}
-            isActive={flippedi.includes(i) || matched.includes(el)}
+            isActive={flippedi.includes(i)}
+            isMatched={matched.includes(el)}
             onClick={() => handleClick(i, el)}
             style={
               flippedi.includes(i) || matched.includes(el)

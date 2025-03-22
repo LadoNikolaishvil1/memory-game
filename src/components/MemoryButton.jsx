@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import "./MemoryButton.css";
 
-const MemoryButton = ({ value, isActive, onClick }) => {
+const MemoryButton = ({ value, isActive, onClick, isMatched }) => {
   return (
     <div
       className="MemoryButton"
       style={{
-        backgroundColor: "var(--darkgrey)",
-        transform: `scaleX(${isActive ? "-1" : "1"})`,
+        backgroundColor: isActive
+          ? "var(--orange)"
+          : isMatched
+          ? "var(--grey)"
+          : "var(--darkgrey)",
+        transform: `scaleX(${isActive || isMatched ? "-1" : "1"})`,
       }}
       onClick={onClick}
     >
@@ -15,7 +19,7 @@ const MemoryButton = ({ value, isActive, onClick }) => {
         style={{
           color: "var(--white)",
           transform: `scaleX(-1)`,
-          opacity: isActive ? "1" : "0",
+          opacity: isActive || isMatched ? "1" : "0",
         }}
       >
         {value}
