@@ -56,14 +56,10 @@ function App() {
   return (
     <main>
       <div className="header">
-        <div className="headname">memory</div>
-        <div className="Restart">
-          Restart
-        
-        </div>
-        <div className="NewGame">
-         New game
-        </div>
+        <h1 className="headname">memory</h1>
+        <button className="Restart">Restart</button>
+        <button className="NewGame">New game</button>
+        <button className="menu">menu</button>
       </div>
       <div className="game">
         {Array.map((el, i) => (
