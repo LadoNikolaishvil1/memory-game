@@ -7,6 +7,7 @@ function App() {
   const [flippedi, setFlippedi] = useState([]);
   const [flippedel, setFlippedel] = useState([]);
   const [matched, setMatched] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const initialArray = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -53,14 +54,19 @@ function App() {
     setFlippedi(newFlippedi);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <main>
+    <main className="relative">
       <div className="header">
         <h1 className="headname">memory</h1>
-        <button className="Restart">Restart</button>
-        <button className="NewGame">New game</button>
-        <button className="menu">menu</button>
+        <button className="menu" onClick={toggleMenu}>
+          Menu
+        </button>
       </div>
+
       <div className="game">
         {Array.map((el, i) => (
           <MemoryButton
@@ -77,7 +83,25 @@ function App() {
           />
         ))}
       </div>
-      <div className="counters"></div>
+
+      {isMenuOpen && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="bg-white rounded-lg w-80 space-y-4 p-6">
+            <button className="w-full bg-yellow-500 text-white py-3 rounded-lg">
+              Restart
+            </button>
+            <button className="w-full bg-gray-200 text-gray-800 py-3 rounded-lg">
+              New Game
+            </button>
+            <button
+              onClick={toggleMenu}
+              className="w-full bg-gray-200 text-gray-800 py-3 rounded-lg"
+            >
+              Resume Game
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
