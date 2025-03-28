@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import MemoryButton from "./components/MemoryButton";
 
@@ -8,6 +8,7 @@ function App() {
   const [flippedel, setFlippedel] = useState([]);
   const [matched, setMatched] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     const initialArray = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -15,20 +16,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (flippedel.length == 2 && flippedel[0] == flippedel[1]) {
+    if (flippedel.length === 2 && flippedel[0] === flippedel[1]) {
       const newMatchedel = [...matched, flippedel[0], flippedel[1]];
       setMatched(newMatchedel);
     }
 
     if (flippedel.length > 2) {
-      flippedel.shift();
-      flippedel.shift();
+      setFlippedel(flippedel.slice(2));
     }
   }, [flippedel]);
 
   useEffect(() => {
-    console.log("matched: ", matched);
-  }, [matched]);
+    if (flippedi.length == 2) {
+      timeoutRef.current = setTimeout(() => {
+        console.log(flippedi, flippedel);
+        setFlippedi(flippedi.slice(2));
+        setFlippedel(flippedel.slice(2));
+      }, 1000);
+    } else if (flippedi.length > 2) {
+      setFlippedi(flippedi.slice(2));
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    }
+  }, [flippedi]);
 
   const shuffle = (array) => {
     for (let i = array.length - 1; i >= 0; i--) {
@@ -43,11 +54,6 @@ function App() {
     if (flippedi.includes(index)) return;
 
     const newFlippedi = [...flippedi, index];
-    if (newFlippedi.length > 2) {
-      newFlippedi.shift();
-      newFlippedi.shift();
-    }
-
     const newFlippedel = [...flippedel, el];
 
     setFlippedel(newFlippedel);
@@ -62,11 +68,14 @@ function App() {
     <main className="relative">
       <div className="header">
         <h1 className="headname">memory</h1>
+        <div className="ButtonBox">
+          <button className="Restart">Restart</button>
+          <button className="NewGame">New Game</button>
+        </div>
         <button className="menu" onClick={toggleMenu}>
           Menu
         </button>
       </div>
-
       <div className="game">
         {Array.map((el, i) => (
           <MemoryButton
@@ -75,27 +84,21 @@ function App() {
             isActive={flippedi.includes(i)}
             isMatched={matched.includes(el)}
             onClick={() => handleClick(i, el)}
-            style={
-              flippedi.includes(i) || matched.includes(el)
-                ? { backgroundColor: "#808080" }
-                : {}
-            }
           />
         ))}
       </div>
-
       {isMenuOpen && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <div className="bg-white rounded-lg w-80 space-y-4 p-6">
-            <button className="w-full bg-yellow-500 text-white py-3 rounded-lg">
+        <div className="menu-positioner">
+          <div className="menu-container">
+            <button className="w-full bg-yellow-500 text-white py-3 rounded-[26px]">
               Restart
             </button>
-            <button className="w-full bg-gray-200 text-gray-800 py-3 rounded-lg">
+            <button className="w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]">
               New Game
             </button>
             <button
               onClick={toggleMenu}
-              className="w-full bg-gray-200 text-gray-800 py-3 rounded-lg"
+              className="w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]"
             >
               Resume Game
             </button>
