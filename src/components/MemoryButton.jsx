@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./MemoryButton.css";
 
 const MemoryButton = ({ value, isActive, onClick, isMatched }) => {
+  const [isHovered, setIsHovered] = useState(false)
   return (
     <div
       className="MemoryButton"
@@ -10,10 +11,14 @@ const MemoryButton = ({ value, isActive, onClick, isMatched }) => {
           ? "var(--orange)"
           : isMatched
           ? "var(--grey)"
+          : isHovered
+          ? "var(--lightblue)"
           : "var(--darkgrey)",
         transform: `scaleX(${isActive || isMatched ? "-1" : "1"})`,
       }}
-      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={!isMatched ? onClick : () => {}}
     >
       <h1
         style={{
