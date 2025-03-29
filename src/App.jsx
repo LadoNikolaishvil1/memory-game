@@ -10,9 +10,19 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const timeoutRef = useRef(null);
 
-  useEffect(() => {
+  const initializeGame = () => {
     const initialArray = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
     setArray(shuffle([...initialArray]));
+    setFlippedi([]);
+    setFlippedel([]);
+    setMatched([]);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  useEffect(() => {
+    initializeGame();
   }, []);
 
   useEffect(() => {
@@ -29,7 +39,6 @@ function App() {
   useEffect(() => {
     if (flippedi.length == 2) {
       timeoutRef.current = setTimeout(() => {
-        console.log(flippedi, flippedel);
         setFlippedi(flippedi.slice(2));
         setFlippedel(flippedel.slice(2));
       }, 1000);
@@ -46,7 +55,6 @@ function App() {
       let random = Math.floor(Math.random() * (i + 1));
       [array[i], array[random]] = [array[random], array[i]];
     }
-
     return array;
   };
 
@@ -69,7 +77,9 @@ function App() {
       <div className="header">
         <h1 className="headname">memory</h1>
         <div className="ButtonBox">
-          <button className="Restart">Restart</button>
+          <button className="Restart" onClick={initializeGame}>
+            Restart
+          </button>
           <button className="NewGame">New Game</button>
         </div>
         <button className="menu" onClick={toggleMenu}>
@@ -90,7 +100,10 @@ function App() {
       {isMenuOpen && (
         <div className="menu-positioner">
           <div className="menu-container">
-            <button className="w-full bg-yellow-500 text-white py-3 rounded-[26px]">
+            <button
+              className="w-full bg-yellow-500 text-white py-3 rounded-[26px]"
+              onClick={initializeGame}
+            >
               Restart
             </button>
             <button className="w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]">
