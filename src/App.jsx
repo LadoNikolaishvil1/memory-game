@@ -19,7 +19,12 @@ function App() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+    if (isMenuOpen){
+      toggleMenu()
+    }
   };
+
+ 
 
   useEffect(() => {
     initializeGame();
