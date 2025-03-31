@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import "./MemoryButton.css";
 
-const MemoryButton = ({ value, isActive, onClick, isMatched }) => {
-  const [isHovered, setIsHovered] = useState(false)
+const MemoryButton = ({
+  value,
+  isActive,
+  onClick,
+  isMatched,
+  ComponentSize,
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div
       className="MemoryButton"
@@ -20,15 +26,29 @@ const MemoryButton = ({ value, isActive, onClick, isMatched }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={!isMatched ? onClick : () => {}}
     >
-      <h1
-        style={{
-          color: "var(--white)",
-          transform: `scaleX(-1)`,
-          opacity: isActive || isMatched ? "1" : "0",
-        }}
-      >
-        {value}
-      </h1>
+      {value.length > 2 ? (
+        <img
+          src={value}
+          alt=""
+          style={{
+            width: ComponentSize,
+            height: ComponentSize,
+            transform: `scaleX(-1)`,
+            opacity: isActive || isMatched ? "1" : "0",
+          }}
+        />
+      ) : (
+        <h1
+          style={{
+            color: "var(--white)",
+            fontSize: ComponentSize,
+            transform: `scaleX(-1)`,
+            opacity: isActive || isMatched ? "1" : "0",
+          }}
+        >
+          {value}
+        </h1>
+      )}
     </div>
   );
 };
