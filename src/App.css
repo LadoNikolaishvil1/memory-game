@@ -122,7 +122,7 @@ button {
 
 .Restart,
 .NewGame {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   height: 100%;
   padding: 11px 29px;
@@ -207,6 +207,10 @@ button {
 @media screen and (width > 500px) {
   .container {
     padding: 56px;
+  }
+  .Restart,
+  .NewGame {
+    font-size: 20px;
   }
   .container h1 {
     top: 170px;
