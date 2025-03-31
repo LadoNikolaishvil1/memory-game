@@ -256,17 +256,20 @@ function App() {
             <div className="menu-positioner">
               <div className="menu-container">
                 <button
-                  className="w-full bg-yellow-500 text-white py-3 rounded-[26px]"
+                  className="Restart w-full bg-yellow-500 text-white py-3 rounded-[26px]"
                   onClick={initializeGame}
                 >
                   Restart
                 </button>
-                <button className="w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]">
+                <button
+                  className="NewGame w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]"
+                  onClick={newGame}
+                >
                   New Game
                 </button>
                 <button
                   onClick={toggleMenu}
-                  className="w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]"
+                  className="NewGame w-full bg-gray-200 text-gray-800 py-3 rounded-[26px]"
                 >
                   Resume Game
                 </button>
