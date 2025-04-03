@@ -93,10 +93,12 @@ function App() {
       setMatched(newMatchedel);
 
       if (newMatchedel.length === Array.length) {
-        if (gameTimerRef.current) {
-          clearInterval(gameTimerRef.current);
-        }
-        setShowVictoryWindow(true);
+        setTimeout(() => {
+          if (gameTimerRef.current) {
+            clearInterval(gameTimerRef.current);
+          }
+          setShowVictoryWindow(true);
+        }, 1.4 * 1000);
       }
     }
 
@@ -286,6 +288,20 @@ function App() {
               />
             ))}
           </div>
+
+          <div className="InfoBox">
+            
+            <div className="Time">
+              <h1>Time</h1>
+              <span>{formatTime(gameTime)}</span>
+            </div>
+
+            <div className="MoveCount">
+              <h1>Move Count</h1>
+              <span>{moveCount}</span>
+            </div>
+
+          </div>
           {isMenuOpen && (
             <div className="menu-positioner">
               <div className="menu-container">
@@ -312,41 +328,36 @@ function App() {
           )}
 
           {showVictoryWindow && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50 backdrop-blur-sm">
-              <div
-                className="bg-white rounded-[20px] p-8 flex flex-col items-center"
-                style={{ width: "654px", height: "510px" }}
-              >
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                  You did it!
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Game over! Here's how you got on...
-                </p>
-
-                <div className="w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center">
-                  <span className="text-gray-600">Time Elapsed</span>
-                  <span className="text-2xl font-bold text-gray-800">
-                    {formatTime(gameTime)}
-                  </span>
+            <div className="menu-positioner fixed inset-0 flex items-center justify-center z-50">
+              <div className="menu-container bg-white flex flex-col items-center">
+                <div className="textBox">
+                  <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+                    You did it!
+                  </h2>
+                  <p>Game over! Here's how you got on...</p>
                 </div>
 
-                <div className="w-full bg-gray-100 rounded-lg p-4 mb-8 flex justify-between items-center">
-                  <span className="text-gray-600">Moves Taken</span>
-                  <span className="text-2xl font-bold text-gray-800">
-                    {moveCount} Moves
-                  </span>
+                <div className="StatsContainer">
+                  <div>
+                    <p>Time Elapsed</p>
+                    <span>{formatTime(gameTime)}</span>
+                  </div>
+
+                  <div>
+                    <p>Moves Taken</p>
+                    <span>{moveCount} Moves</span>
+                  </div>
                 </div>
 
-                <div className="flex w-full gap-4">
+                <div className="EndBtnBox flex w-full gap-4">
                   <button
-                    className="flex-1 bg-orange-500 text-white py-3 rounded-[26px] font-bold"
+                    className="Restart flex-1 bg-orange-500 text-white py-3 rounded-[26px] font-bold"
                     onClick={initializeGame}
                   >
                     Restart
                   </button>
                   <button
-                    className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-[26px] font-bold"
+                    className="NewGame flex-1 bg-gray-200 text-gray-800 py-3 rounded-[26px] font-bold"
                     onClick={newGame}
                   >
                     Setup New Game

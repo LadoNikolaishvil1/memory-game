@@ -93,6 +93,7 @@ button {
   display: flex;
   position: absolute;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
   padding: 24px;
   width: 100%;
@@ -106,8 +107,6 @@ button {
 
 .ButtonBox {
   display: none;
-  position: absolute;
-  right: 39px;
 }
 
 .Restart {
@@ -151,8 +150,6 @@ button {
   width: 74px;
   height: 40px;
   align-self: flex-end;
-  position: absolute;
-  right: 25px;
   transition: 0.4s ease;
 }
 
@@ -172,6 +169,39 @@ button {
   text-decoration-color: var(--white);
 }
 
+.InfoBox {
+  width: 100%;
+  padding: 0 24px;
+  position: absolute;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.InfoBox div {
+  width: 100%;
+  height: 70px;
+  background-color: #dfe7ec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.InfoBox div h1 {
+  color: var(--nave);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.InfoBox div span {
+  color: var(--darkgrey);
+  font-size: 24px;
+  font-weight: 700;
+}
+
 .counters {
   width: 100%;
   padding: 20px 10px;
@@ -181,7 +211,7 @@ button {
 .menu-positioner {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
@@ -202,6 +232,47 @@ button {
 
 .menu-container button {
   padding: 12px 0;
+}
+
+.menu-container p {
+  color: var(--nave);
+  font-weight: 700;
+  size: 14px;
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.StatsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.StatsContainer div {
+  background-color: #dfe7ec;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  justify-content: space-between;
+}
+
+.StatsContainer div span {
+  color: var(--darkgrey);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.EndBtnBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 @media screen and (width > 500px) {
@@ -243,6 +314,21 @@ button {
   .game {
     width: 532px;
   }
+  .InfoBox {
+    width: 532px;
+    bottom: 48px;
+  }
+  .InfoBox div {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 21px;
+  }
+  .InfoBox div h1 {
+    font-size: 18px;
+  }
+  .InfoBox div span {
+    font-size: 32px;
+  }
   .header {
     padding: 39px;
   }
@@ -255,6 +341,14 @@ button {
   .ButtonBox {
     display: flex;
     gap: 18px;
+  }
+  .menu-container {
+    scale: 1.2;
+    width: 65%;
+    margin: 0;
+  }
+  .EndBtnBox {
+    flex-direction: row;
   }
 }
 
@@ -276,11 +370,24 @@ button {
   .game {
     width: 420px;
   }
+  .InfoBox {
+    width: 420px;
+  }
+  .InfoBox div h1 {
+    font-size: 16px;
+  }
+  .InfoBox div span {
+    font-size: 25px;
+  }
   .header {
     padding: 39px 150px;
   }
-  .ButtonBox {
-    right: 150px;
+  .menu-container {
+    scale: 1;
+    width: 50%;
+    padding: 35px;
+    gap: 30px;
+    margin: 0;
   }
 }
 
@@ -300,10 +407,27 @@ button {
   .game {
     width: 600px;
   }
+  .InfoBox {
+    width: 600px;
+    bottom: 200px;
+  }
+  .InfoBox div {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 21px;
+  }
+  .InfoBox div h1 {
+    font-size: 18px;
+  }
+  .InfoBox div span {
+    font-size: 32px;
+  }
   .header {
     padding: 39px 600px;
   }
-  .ButtonBox {
-    right: 250px;
+  .menu-container {
+    scale: 1.6;
+    width: 30%;
+    margin: 0;
   }
 }
