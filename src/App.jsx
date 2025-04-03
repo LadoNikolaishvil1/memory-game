@@ -12,14 +12,25 @@ function App() {
   const [GridSizeBtns, setGridSizeBtns] = useState(["4x4"]);
   const [ComponentSize, setComponentSize] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [moveCount, setMoveCount] = useState(0);
+  const [gameTime, setGameTime] = useState(0);
+  const [showVictoryWindow, setShowVictoryWindow] = useState(false);
   const timeoutRef = useRef(null);
+  const gameTimerRef = useRef(null);
+  const gameStartTimeRef = useRef(null);
 
   const RefreshVariables = () => {
     setFlippedi([]);
     setFlippedel([]);
     setMatched([]);
+    setMoveCount(0);
+    setGameTime(0);
+    setShowVictoryWindow(false);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+    }
+    if (gameTimerRef.current) {
+      clearInterval(gameTimerRef.current);
     }
     if (isMenuOpen) {
       toggleMenu();
@@ -27,7 +38,7 @@ function App() {
   };
 
   const initializeGame = () => {
-    // const initialArray = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+    RefreshVariables();
 
     if (GridSizeBtns[0] == "4x4") {
       const initialArray = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -51,7 +62,13 @@ function App() {
       }
     }
 
-    RefreshVariables();
+    gameStartTimeRef.current = Date.now();
+    gameTimerRef.current = setInterval(() => {
+      const elapsedSeconds = Math.floor(
+        (Date.now() - gameStartTimeRef.current) / 1000
+      );
+      setGameTime(elapsedSeconds);
+    }, 1000);
   };
 
   const newGame = () => {
@@ -74,6 +91,13 @@ function App() {
     if (flippedel.length === 2 && flippedel[0] === flippedel[1]) {
       const newMatchedel = [...matched, flippedel[0], flippedel[1]];
       setMatched(newMatchedel);
+
+      if (newMatchedel.length === Array.length) {
+        if (gameTimerRef.current) {
+          clearInterval(gameTimerRef.current);
+        }
+        setShowVictoryWindow(true);
+      }
     }
 
     if (flippedel.length > 2) {
@@ -111,6 +135,10 @@ function App() {
 
     setFlippedel(newFlippedel);
     setFlippedi(newFlippedi);
+
+    if (flippedi.length % 2 === 0) {
+      setMoveCount(moveCount + 1);
+    }
   };
 
   const toggleMenu = () => {
@@ -128,6 +156,12 @@ function App() {
       setArray(Array.slice(1));
       setArray([e.target.id]);
     }
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   return (
@@ -273,6 +307,51 @@ function App() {
                 >
                   Resume Game
                 </button>
+              </div>
+            </div>
+          )}
+
+          {showVictoryWindow && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50 backdrop-blur-sm">
+              <div
+                className="bg-white rounded-[20px] p-8 flex flex-col items-center"
+                style={{ width: "654px", height: "510px" }}
+              >
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+                  You did it!
+                </h2>
+                <p className="text-gray-600 mb-8">
+                  Game over! Here's how you got on...
+                </p>
+
+                <div className="w-full bg-gray-100 rounded-lg p-4 mb-4 flex justify-between items-center">
+                  <span className="text-gray-600">Time Elapsed</span>
+                  <span className="text-2xl font-bold text-gray-800">
+                    {formatTime(gameTime)}
+                  </span>
+                </div>
+
+                <div className="w-full bg-gray-100 rounded-lg p-4 mb-8 flex justify-between items-center">
+                  <span className="text-gray-600">Moves Taken</span>
+                  <span className="text-2xl font-bold text-gray-800">
+                    {moveCount} Moves
+                  </span>
+                </div>
+
+                <div className="flex w-full gap-4">
+                  <button
+                    className="flex-1 bg-orange-500 text-white py-3 rounded-[26px] font-bold"
+                    onClick={initializeGame}
+                  >
+                    Restart
+                  </button>
+                  <button
+                    className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-[26px] font-bold"
+                    onClick={newGame}
+                  >
+                    Setup New Game
+                  </button>
+                </div>
               </div>
             </div>
           )}
